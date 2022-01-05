@@ -3,6 +3,7 @@ import commonjs from '@rollup/plugin-commonjs';
 import resolve from '@rollup/plugin-node-resolve';
 import { terser } from 'rollup-plugin-terser';
 import css from 'rollup-plugin-css-only';
+import json from '@rollup/plugin-json';
 
 const production = !process.env.ROLLUP_WATCH;
 
@@ -37,7 +38,7 @@ export default [
 			}),
 
 			commonjs(),
-
+			json(),
 			// instead of npm run dev), minify
 			production && terser(),
 		],
@@ -66,7 +67,7 @@ export default [
 				dedupe: ['svelte'],
 			}),
 			commonjs(),
-
+			json(),
 			production && terser(),
 		],
 		watch: {
@@ -94,7 +95,7 @@ export default [
 				dedupe: ['svelte'],
 			}),
 			commonjs(),
-
+			json(),
 			production && terser(),
 		],
 		watch: {
@@ -108,7 +109,7 @@ export default [
 			format: 'iife',
 			file: 'public/build/background.js',
 		},
-		plugins: [resolve(), commonjs(), production && terser()],
+		plugins: [resolve(), commonjs(), json(), production && terser()],
 		watch: {
 			clearScreen: false,
 		},

@@ -1,5 +1,9 @@
 <script>
 	import { blockInfo, openDialog } from './store';
+	import { _ } from 'svelte-i18n';
+	import { i18nService } from './i18n/i18nService';
+
+	i18nService();
 
 	function handleClickBlockChannel(e) {
 		e.preventDefault();
@@ -46,7 +50,7 @@
 	}
 </script>
 
-<div class="datakun-ytb-button-container" role="menuitem" aria-selected="false" tabindex="-1" on:click={handleClickBlockChannel}>Block this channel</div>
+<div class="datakun-ytb-button-container" role="menuitem" aria-selected="false" tabindex="-1" on:click={handleClickBlockChannel}>{$_('block-this-channel')}</div>
 
 <style>
 	div.datakun-ytb-button-container {

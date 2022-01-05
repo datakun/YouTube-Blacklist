@@ -2,6 +2,10 @@
 	import Button, { Label } from '@smui/button';
 	import List, { Item, Separator, Text, Meta } from '@smui/list';
 	import Paper from '@smui/paper';
+	import { _ } from 'svelte-i18n';
+	import { i18nService } from './i18n/i18nService';
+
+	i18nService();
 
 	$: channelList = [];
 	$: videoList = [];
@@ -30,7 +34,9 @@
 		};
 
 		// 스토리지에 저장
-		chrome.storage.sync.set({ options });
+		await chrome.storage.sync.set({ options });
+
+		alert('Options saved.');
 	}
 
 	function handleCancelChannelList() {
@@ -46,7 +52,9 @@
 		};
 
 		// 스토리지에 저장
-		chrome.storage.sync.set({ options });
+		await chrome.storage.sync.set({ options });
+
+		alert('Options saved.');
 	}
 
 	function handleCancelVideoList() {
@@ -56,19 +64,19 @@
 
 <div class="box">
 	<div class="main-container">
-		<p id="title">YouTube Blacklist Options</p>
+		<p id="title">{$_('YouTube Blacklist Options')}</p>
 		<Paper>
-			<div class="title-container">유튜브 검색 결과에서 제외할 채널 목록</div>
+			<div class="title-container">{$_('Channel List to Block')}</div>
 			<Separator />
 			<div class="block-container">
 				<List class="list">
 					{#each channelList as item, i}
-						<Item class="item">
+						<Item class="item" title={item.name}>
 							<Text>{item.name}</Text>
 							<Meta
 								class="material-icons"
+								title={$_('Remove')}
 								on:click={() => {
-									// 배열에서 삭제
 									const newList = channelList;
 									newList.splice(i, 1);
 									channelList = newList;
@@ -82,23 +90,24 @@
 			</div>
 			<div class="action-container">
 				<Button variant="raised" style="margin-left: 8px;" on:click={handleSaveChannelList}>
-					<Label>저장</Label>
+					<Label>{$_('Save')}</Label>
 				</Button>
 				<Button variant="outlined" on:click={handleCancelChannelList}>
-					<Label>취소</Label>
+					<Label>{$_('Cancel')}</Label>
 				</Button>
 			</div>
 		</Paper>
 		<Paper style="margin-top: 16px;">
-			<div class="title-container">유튜브 검색 결과에서 제외할 비디오 목록</div>
+			<div class="title-container">{$_('Video List to Block')}</div>
 			<Separator />
 			<div class="block-container">
 				<List class="list">
 					{#each videoList as item, i}
-						<Item class="item">
+						<Item class="item" title={item.name}>
 							<Text>{item.name}</Text>
 							<Meta
 								class="material-icons"
+								title={$_('Remove')}
 								on:click={() => {
 									// 배열에서 삭제
 									const newList = videoList;
@@ -114,10 +123,10 @@
 			</div>
 			<div class="action-container">
 				<Button variant="raised" style="margin-left: 8px;" on:click={handleSaveVideoList}>
-					<Label>저장</Label>
+					<Label>{$_('Cancel')}</Label>
 				</Button>
 				<Button variant="outlined" on:click={handleCancelVideoList}>
-					<Label>취소</Label>
+					<Label>{$_('Cancel')}</Label>
 				</Button>
 			</div>
 		</Paper>

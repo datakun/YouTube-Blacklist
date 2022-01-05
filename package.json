@@ -12,6 +12,7 @@
 	},
 	"devDependencies": {
 		"@rollup/plugin-commonjs": "^17.0.0",
+		"@rollup/plugin-json": "^4.1.0",
 		"@rollup/plugin-node-resolve": "^11.0.0",
 		"@smui/button": "^6.0.0-beta.11",
 		"@smui/dialog": "^6.0.0-beta.11",
@@ -30,6 +31,7 @@
 		"webextension-polyfill": "^0.8.0"
 	},
 	"dependencies": {
-		"sirv-cli": "^1.0.0"
+		"sirv-cli": "^1.0.0",
+		"svelte-i18n": "^3.3.13"
 	}
 }

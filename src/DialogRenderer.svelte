@@ -2,6 +2,10 @@
 	import Button, { Label } from '@smui/button';
 	import Dialog, { Title, Content, Actions } from '@smui/dialog';
 	import { openDialog, blockInfo } from './store';
+	import { _ } from 'svelte-i18n';
+	import { i18nService } from './i18n/i18nService';
+
+	i18nService();
 
 	let open = false;
 	openDialog.subscribe((value) => {
@@ -52,9 +56,10 @@
 		chrome.storage.sync.set({ options });
 
 		// 결과에서 숨기기
-		const elemA = document.querySelector(`a[href="${info.url}"]`);
-		if (elemA && elemA.closest('ytd-video-renderer')) {
-			elemA.closest('ytd-video-renderer').style.display = 'none';
+		for (const elemA of document.querySelectorAll(`a[href="${info.url}"]`)) {
+			if (elemA && elemA.closest('ytd-video-renderer')) {
+				elemA.closest('ytd-video-renderer').style.display = 'none';
+			}
 		}
 
 		handleClose();
@@ -66,10 +71,10 @@
 </script>
 
 <Dialog bind:open aria-labelledby="title" aria-describedby="content" on:SMUIDialog:closed={handleClose}>
-	<Title style="font-size: 18px;">YouTube Blacklist</Title>
+	<Title style="font-size: 18px;">{$_('youtube-blacklist')}</Title>
 	<Content style="font-size: 14px;">
 		<br />
-		Block this channel?
+		{$_('block-this-channel')}
 		<br />
 		<div class="channel-container">
 			<img class="channel-profile-image" width="24" height="24" alt={info.name} src={info.image} />
@@ -78,10 +83,10 @@
 	</Content>
 	<Actions style="font-size: 14px;">
 		<Button on:click={handleClickNo}>
-			<Label>No</Label>
+			<Label>{$_('no')}</Label>
 		</Button>
 		<Button on:click={handleClickYes}>
-			<Label>Yes</Label>
+			<Label>{$_('yes')}</Label>
 		</Button>
 	</Actions>
 </Dialog>
