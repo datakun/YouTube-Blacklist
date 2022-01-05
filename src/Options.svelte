@@ -36,7 +36,7 @@
 		// 스토리지에 저장
 		await chrome.storage.sync.set({ options });
 
-		alert('Options saved.');
+		alert($_('options-saved'));
 	}
 
 	function handleCancelChannelList() {

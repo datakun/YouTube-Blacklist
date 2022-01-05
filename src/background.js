@@ -9,6 +9,8 @@ async function insertStyles(tabId) {
 		func: isDarkMode,
 	});
 
+	console.log('is Dark Mode?', injectResult.result);
+
 	if (injectResult.result !== null && injectResult.result !== undefined) {
 		let filename = './build/smui.css';
 		if (injectResult.result === true) {
@@ -41,7 +43,7 @@ async function main() {
 
 	// 탭이 업데이트 되면 할 일 등록
 	chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
-		if (changeInfo.status === 'loading') {
+		if (changeInfo.status === 'complete') {
 			// 검색 결과 url 에서만 스타일 삽입
 			if (tab.url) {
 				if (tab.url.startsWith('https://www.youtube.com/results?search_query=')) {
