@@ -1,11 +1,18 @@
 <script>
 	import Button, { Label } from '@smui/button';
 	import Dialog, { Title, Content, Actions } from '@smui/dialog';
+	import IconButton, { Icon } from '@smui/icon-button';
+	import { Svg } from '@smui/common/elements';
+	import { mdiClose } from '@mdi/js';
+	import Snackbar from '@smui/snackbar';
 	import { openDialog, blockInfo } from './store';
 	import { _ } from 'svelte-i18n';
 	import { i18nService } from './i18n/i18nService';
 
 	i18nService();
+
+	let snackbar = null;
+	$: snackbarType = 'channel';
 
 	let open = false;
 	openDialog.subscribe((value) => {
@@ -53,6 +60,8 @@
 			});
 		}
 
+		snackbarType = info.type;
+
 		// 스토리지에 저장
 		chrome.storage.sync.set({ options });
 
@@ -65,6 +74,8 @@
 		}
 
 		handleClose();
+
+		snackbar.open();
 	}
 
 	function handleClickNo() {
@@ -98,6 +109,21 @@
 		</Button>
 	</Actions>
 </Dialog>
+
+<Snackbar bind:this={snackbar}>
+	{#if snackbarType === 'channel'}
+		<Label style="font-size: 16px;">{$_('you-have-blocked-the-channel')}</Label>
+	{:else}
+		<Label style="font-size: 16px;">{$_('you-have-blocked-the-video')}</Label>
+	{/if}
+	<Actions>
+		<IconButton title={$_('Remove')} on:click={() => snackbar.close()}>
+			<Icon component={Svg} viewBox="0 0 24 24">
+				<path fill="currentColor" d={mdiClose} />
+			</Icon>
+		</IconButton>
+	</Actions>
+</Snackbar>
 
 <style>
 	.channel-container {

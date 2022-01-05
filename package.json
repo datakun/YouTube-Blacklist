@@ -11,13 +11,16 @@
 		"start": "sirv public --no-clear"
 	},
 	"devDependencies": {
+		"@mdi/js": "^6.5.95",
 		"@rollup/plugin-commonjs": "^17.0.0",
 		"@rollup/plugin-json": "^4.1.0",
 		"@rollup/plugin-node-resolve": "^11.0.0",
 		"@smui/button": "^6.0.0-beta.11",
 		"@smui/dialog": "^6.0.0-beta.11",
+		"@smui/icon-button": "^6.0.0-beta.12",
 		"@smui/list": "^6.0.0-beta.11",
 		"@smui/paper": "^6.0.0-beta.11",
+		"@smui/snackbar": "^6.0.0-beta.12",
 		"@types/chrome": "^0.0.174",
 		"prettier": "^2.5.1",
 		"prettier-plugin-svelte": "^2.5.1",
