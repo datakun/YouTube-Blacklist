@@ -54,7 +54,7 @@
 		// 스토리지에 저장
 		await chrome.storage.sync.set({ options });
 
-		alert('Options saved.');
+		alert($_('options-saved'));
 	}
 
 	function handleCancelVideoList() {
@@ -123,7 +123,7 @@
 			</div>
 			<div class="action-container">
 				<Button variant="raised" style="margin-left: 8px;" on:click={handleSaveVideoList}>
-					<Label>{$_('Cancel')}</Label>
+					<Label>{$_('Save')}</Label>
 				</Button>
 				<Button variant="outlined" on:click={handleCancelVideoList}>
 					<Label>{$_('Cancel')}</Label>

@@ -52,7 +52,7 @@
 		chrome.storage.sync.set({ options });
 
 		// 결과에서 숨기기
-		const elemA = document.querySelector(`a[href="${info.url}"]`);
+		const elemA = document.querySelector(`div#channel-info.ytd-video-renderer > a[href="${info.url}"]`);
 		if (elemA && elemA.closest('ytd-video-renderer')) {
 			elemA.closest('ytd-video-renderer').style.display = 'none';
 		}

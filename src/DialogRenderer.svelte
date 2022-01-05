@@ -39,11 +39,12 @@
 		// 중복 확인 후 추가
 		let isDuplicate = false;
 		for (const item of options.blocks[info.type]) {
-			if (item.name === info.name) {
+			if (item.url === info.url) {
 				isDuplicate = true;
 				break;
 			}
 		}
+
 		if (isDuplicate === false) {
 			options.blocks[info.type].push({
 				type: info.type,
@@ -56,9 +57,10 @@
 		chrome.storage.sync.set({ options });
 
 		// 결과에서 숨기기
-		for (const elemA of document.querySelectorAll(`a[href="${info.url}"]`)) {
-			if (elemA && elemA.closest('ytd-video-renderer')) {
-				elemA.closest('ytd-video-renderer').style.display = 'none';
+		const blockElementList = document.querySelectorAll(`a[href="${info.url}"]`);
+		for (const element of blockElementList) {
+			if (element && element.closest('ytd-video-renderer')) {
+				element.closest('ytd-video-renderer').style.display = 'none';
 			}
 		}
 
@@ -74,18 +76,24 @@
 	<Title style="font-size: 18px;">{$_('youtube-blacklist')}</Title>
 	<Content style="font-size: 14px;">
 		<br />
-		{$_('block-this-channel')}
+		{#if info.type === 'channel'}
+			{$_('block-this-channel-ask')}
+		{:else}
+			{$_('block-this-video-ask')}
+		{/if}
 		<br />
 		<div class="channel-container">
-			<img class="channel-profile-image" width="24" height="24" alt={info.name} src={info.image} />
+			{#if info.type === 'channel'}
+				<img class="channel-profile-image" width="24" height="24" alt={info.name} src={info.image} />
+			{/if}
 			<span class="channel-name">{info.name}</span>
 		</div>
 	</Content>
-	<Actions style="font-size: 14px;">
-		<Button on:click={handleClickNo}>
+	<Actions>
+		<Button style="font-size: 14px;" on:click={handleClickNo}>
 			<Label>{$_('no')}</Label>
 		</Button>
-		<Button on:click={handleClickYes}>
+		<Button style="font-size: 14px;" on:click={handleClickYes}>
 			<Label>{$_('yes')}</Label>
 		</Button>
 	</Actions>
