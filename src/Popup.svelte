@@ -1,12 +1,11 @@
 <script>
 	import Button, { Label } from '@smui/button';
-	import Dialog, { Title, Content, Actions } from '@smui/dialog';
+	import { Title, Content, Actions } from '@smui/dialog';
 	import { openDialog, blockInfo } from './store';
+	import { _ } from 'svelte-i18n';
+	import { i18nService } from './i18n/i18nService';
 
-	let open = false;
-	openDialog.subscribe((value) => {
-		open = value;
-	});
+	i18nService();
 
 	let info = {
 		type: '',
@@ -19,7 +18,6 @@
 	});
 
 	function handleClose() {
-		openDialog.set(false);
 		blockInfo.set({
 			type: '',
 			name: '',
@@ -29,33 +27,33 @@
 	}
 
 	async function handleClickYes() {
-		// 스토리지에 저장된 값 가져오기
-		const { options } = await chrome.storage.sync.get('options');
+		// // 스토리지에 저장된 값 가져오기
+		// const { options } = await chrome.storage.sync.get('options');
 
-		// 중복 확인 후 추가
-		let isDuplicate = false;
-		for (const item of options.blocks[info.type]) {
-			if (item.name === info.name) {
-				isDuplicate = true;
-				break;
-			}
-		}
-		if (isDuplicate === false) {
-			options.blocks[info.type].push({
-				type: info.type,
-				name: info.name,
-				url: info.url,
-			});
-		}
+		// // 중복 확인 후 추가
+		// let isDuplicate = false;
+		// for (const item of options.blocks[info.type]) {
+		// 	if (item.name === info.name) {
+		// 		isDuplicate = true;
+		// 		break;
+		// 	}
+		// }
+		// if (isDuplicate === false) {
+		// 	options.blocks[info.type].push({
+		// 		type: info.type,
+		// 		name: info.name,
+		// 		url: info.url,
+		// 	});
+		// }
 
-		// 스토리지에 저장
-		chrome.storage.sync.set({ options });
+		// // 스토리지에 저장
+		// chrome.storage.sync.set({ options });
 
-		// 결과에서 숨기기
-		const elemA = document.querySelector(`div#channel-info.ytd-video-renderer > a[href="${info.url}"]`);
-		if (elemA && elemA.closest('ytd-video-renderer')) {
-			elemA.closest('ytd-video-renderer').style.display = 'none';
-		}
+		// // 결과에서 숨기기
+		// const elemA = document.querySelector(`div#channel-info.ytd-video-renderer > a[href="${info.url}"]`);
+		// if (elemA && elemA.closest('ytd-video-renderer')) {
+		// 	elemA.closest('ytd-video-renderer').style.display = 'none';
+		// }
 
 		handleClose();
 	}
@@ -65,26 +63,30 @@
 	}
 </script>
 
-<Dialog bind:open aria-labelledby="title" aria-describedby="content" on:SMUIDialog:closed={handleClose}>
-	<Title style="font-size: 18px;">YouTube Blacklist</Title>
-	<Content style="font-size: 14px;">
-		<br />
-		Block this channel?
-		<br />
-		<div class="channel-container">
+<Title style="font-size: 18px;">{$_('youtube-blacklist')}</Title>
+<Content style="font-size: 14px;">
+	<br />
+	{#if info.type === 'channel'}
+		{$_('block-this-channel-ask')}
+	{:else}
+		{$_('block-this-video-ask')}
+	{/if}
+	<br />
+	<div class="channel-container">
+		{#if info.type === 'channel'}
 			<img class="channel-profile-image" width="24" height="24" alt={info.name} src={info.image} />
-			<span class="channel-name">{info.name}</span>
-		</div>
-	</Content>
-	<Actions style="font-size: 14px;">
-		<Button on:click={handleClickNo}>
-			<Label>No</Label>
-		</Button>
-		<Button on:click={handleClickYes}>
-			<Label>Yes</Label>
-		</Button>
-	</Actions>
-</Dialog>
+		{/if}
+		<span class="channel-name">{info.name}</span>
+	</div>
+</Content>
+<Actions>
+	<Button style="font-size: 14px;" on:click={handleClickNo}>
+		<Label>{$_('no')}</Label>
+	</Button>
+	<Button style="font-size: 14px;" on:click={handleClickYes}>
+		<Label>{$_('yes')}</Label>
+	</Button>
+</Actions>
 
 <style>
 	.channel-container {

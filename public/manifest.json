@@ -14,7 +14,7 @@
 		}
 	],
 	"host_permissions": ["https://www.youtube.com/*"],
-	"permissions": ["identity", "storage", "activeTab", "tabs", "scripting"],
+	"permissions": ["storage", "activeTab", "scripting"],
 	"action": {
 		"default_popup": "./popup.html",
 		"default_icon": {
