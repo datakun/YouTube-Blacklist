@@ -2,10 +2,7 @@
 	import Button, { Label } from '@smui/button';
 	import List, { Item, Separator, Text, Meta } from '@smui/list';
 	import Paper from '@smui/paper';
-	import { _ } from 'svelte-i18n';
-	import { i18nService } from './i18n/i18nService';
-
-	i18nService();
+	import { t } from './utils';
 
 	$: channelList = [];
 	$: videoList = [];
@@ -36,7 +33,7 @@
 		// 스토리지에 저장
 		await chrome.storage.sync.set({ options });
 
-		alert($_('options-saved'));
+		alert(t('options_saved'));
 	}
 
 	function handleCancelChannelList() {
@@ -54,7 +51,7 @@
 		// 스토리지에 저장
 		await chrome.storage.sync.set({ options });
 
-		alert($_('options-saved'));
+		alert(t('options_saved'));
 	}
 
 	function handleCancelVideoList() {
@@ -64,9 +61,9 @@
 
 <div class="box">
 	<div class="main-container">
-		<p id="title">{$_('YouTube Blacklist Options')}</p>
+		<p id="title">{t('youtube_blacklist_options')}</p>
 		<Paper>
-			<div class="title-container">{$_('Channel List to Block')}</div>
+			<div class="title-container">{t('channel_list_to_block')}</div>
 			<Separator />
 			<div class="block-container">
 				<List class="list">
@@ -75,7 +72,7 @@
 							<Text>{item.name}</Text>
 							<Meta
 								class="material-icons"
-								title={$_('Remove')}
+								title={t('remove')}
 								on:click={() => {
 									const newList = channelList;
 									newList.splice(i, 1);
@@ -90,15 +87,15 @@
 			</div>
 			<div class="action-container">
 				<Button variant="raised" style="margin-left: 8px;" on:click={handleSaveChannelList}>
-					<Label>{$_('Save')}</Label>
+					<Label>{t('save')}</Label>
 				</Button>
 				<Button variant="outlined" on:click={handleCancelChannelList}>
-					<Label>{$_('Cancel')}</Label>
+					<Label>{t('cancel')}</Label>
 				</Button>
 			</div>
 		</Paper>
 		<Paper style="margin-top: 16px;">
-			<div class="title-container">{$_('Video List to Block')}</div>
+			<div class="title-container">{t('video_list_to_block')}</div>
 			<Separator />
 			<div class="block-container">
 				<List class="list">
@@ -107,7 +104,7 @@
 							<Text>{item.name}</Text>
 							<Meta
 								class="material-icons"
-								title={$_('Remove')}
+								title={t('remove')}
 								on:click={() => {
 									// 배열에서 삭제
 									const newList = videoList;
@@ -123,10 +120,10 @@
 			</div>
 			<div class="action-container">
 				<Button variant="raised" style="margin-left: 8px;" on:click={handleSaveVideoList}>
-					<Label>{$_('Save')}</Label>
+					<Label>{t('save')}</Label>
 				</Button>
 				<Button variant="outlined" on:click={handleCancelVideoList}>
-					<Label>{$_('Cancel')}</Label>
+					<Label>{t('cancel')}</Label>
 				</Button>
 			</div>
 		</Paper>

@@ -1,0 +1,20 @@
+{
+	"description": { "message": "Hide specific channels or videos from YouTube search results" },
+	"cancel": { "message": "cancel" },
+	"channel_list_to_block": { "message": "Channel List to Block" },
+	"general": { "message": "General" },
+	"remove": { "message": "remove" },
+	"save": { "message": "Save" },
+	"video_list_to_block": { "message": "Video List to Block" },
+	"youtube_blacklist_options": { "message": "YouTube Blacklist Options" },
+	"block_this_channel": { "message": "Block this channel" },
+	"block_this_channel_ask": { "message": "Block this channel?" },
+	"block_this_video": { "message": "Block this video" },
+	"block_this_video_ask": { "message": "Block this video?" },
+	"no": { "message": "No" },
+	"options_saved": { "message": "Saved the settings. Please refresh youtube page." },
+	"yes": { "message": "Yes" },
+	"you_have_blocked_the_channel": { "message": "You have blocked the channel." },
+	"you_have_blocked_the_video": { "message": "You have blocked the video." },
+	"youtube_blacklist": { "message": "YouTube Blacklist" }
+}

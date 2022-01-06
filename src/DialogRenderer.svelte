@@ -6,10 +6,7 @@
 	import { mdiClose } from '@mdi/js';
 	import Snackbar from '@smui/snackbar';
 	import { openDialog, blockInfo } from './store';
-	import { _ } from 'svelte-i18n';
-	import { i18nService } from './i18n/i18nService';
-
-	i18nService();
+	import { t } from './utils';
 
 	let snackbar = null;
 	$: snackbarType = 'channel';
@@ -84,13 +81,13 @@
 </script>
 
 <Dialog bind:open aria-labelledby="title" aria-describedby="content" on:SMUIDialog:closed={handleClose}>
-	<Title style="font-size: 18px;">{$_('youtube-blacklist')}</Title>
+	<Title style="font-size: 18px;">{t('youtube_blacklist')}</Title>
 	<Content style="font-size: 14px;">
 		<br />
 		{#if info.type === 'channel'}
-			{$_('block-this-channel-ask')}
+			{t('block_this_channel_ask')}
 		{:else}
-			{$_('block-this-video-ask')}
+			{t('block_this_video_ask')}
 		{/if}
 		<br />
 		<div class="channel-container">
@@ -102,22 +99,22 @@
 	</Content>
 	<Actions>
 		<Button style="font-size: 14px;" on:click={handleClickNo}>
-			<Label>{$_('no')}</Label>
+			<Label>{t('no')}</Label>
 		</Button>
 		<Button style="font-size: 14px;" on:click={handleClickYes}>
-			<Label>{$_('yes')}</Label>
+			<Label>{t('yes')}</Label>
 		</Button>
 	</Actions>
 </Dialog>
 
 <Snackbar bind:this={snackbar}>
 	{#if snackbarType === 'channel'}
-		<Label style="font-size: 16px;">{$_('you-have-blocked-the-channel')}</Label>
+		<Label style="font-size: 16px;">{t('you_have_blocked_the_channel')}</Label>
 	{:else}
-		<Label style="font-size: 16px;">{$_('you-have-blocked-the-video')}</Label>
+		<Label style="font-size: 16px;">{t('you_have_blocked_the_video')}</Label>
 	{/if}
 	<Actions>
-		<IconButton title={$_('Remove')} on:click={() => snackbar.close()}>
+		<IconButton title={t('remove')} on:click={() => snackbar.close()}>
 			<Icon component={Svg} viewBox="0 0 24 24">
 				<path fill="currentColor" d={mdiClose} />
 			</Icon>

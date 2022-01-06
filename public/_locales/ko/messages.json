@@ -1,0 +1,20 @@
+{
+	"description": { "message": "YouTube 검색 결과에서 특정 채널이나 비디오를 숨깁니다" },
+	"cancel": { "message": "취소" },
+	"channel_list_to_block": { "message": "차단할 채널 목록" },
+	"general": { "message": "일반" },
+	"remove": { "message": "제거" },
+	"save": { "message": "저장" },
+	"video_list_to_block": { "message": "차단할 비디오 목록" },
+	"youtube_blacklist_options": { "message": "YouTube Blacklist 옵션" },
+	"block_this_channel": { "message": "이 채널 차단하기" },
+	"block_this_channel_ask": { "message": "이 채널을 차단할까요?" },
+	"block_this_video": { "message": "이 비디오 차단하기" },
+	"block_this_video_ask": { "message": "이 비디오를 차단할까요?" },
+	"no": { "message": "아니오" },
+	"options_saved": { "message": "설정을 저장했습니다. 유튜브 페이지를 새로고침하여 적용하십시오." },
+	"yes": { "message": "네" },
+	"you_have_blocked_the_channel": { "message": "채널을 차단했습니다." },
+	"you_have_blocked_the_video": { "message": "영상을 차단했습니다." },
+	"youtube_blacklist": { "message": "YouTube Blacklist" }
+}

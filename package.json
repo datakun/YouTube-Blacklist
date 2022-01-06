@@ -34,7 +34,6 @@
 		"webextension-polyfill": "^0.8.0"
 	},
 	"dependencies": {
-		"sirv-cli": "^1.0.0",
-		"svelte-i18n": "^3.3.13"
+		"sirv-cli": "^1.0.0"
 	}
 }

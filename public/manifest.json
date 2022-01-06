@@ -1,7 +1,7 @@
 {
 	"name": "YouTube Blacklist",
-	"description": "Create a YouTube blacklist to prevent clicks.",
-	"version": "0.1.0",
+	"description": "__MSG_description__",
+	"version": "0.1.1",
 	"manifest_version": 3,
 	"background": {
 		"service_worker": "./build/background.js"
@@ -10,7 +10,8 @@
 		{
 			"js": ["build/injection.js"],
 			"css": ["build/injection.css"],
-			"matches": ["https://www.youtube.com/*"]
+			"matches": ["https://www.youtube.com/*"],
+			"run_at": "document_start"
 		}
 	],
 	"host_permissions": ["https://www.youtube.com/*"],
@@ -30,5 +31,6 @@
 		"48": "./images/ic_youtube_blacklist_48.png",
 		"128": "./images/ic_youtube_blacklist_128.png"
 	},
-	"options_page": "./options.html"
+	"options_page": "./options.html",
+	"default_locale": "en"
 }

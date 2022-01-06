@@ -1,9 +1,6 @@
 <script>
 	import { blockInfo, openDialog } from './store';
-	import { _ } from 'svelte-i18n';
-	import { i18nService } from './i18n/i18nService';
-
-	i18nService();
+	import { t } from './utils';
 
 	function hideDropdownMenu() {
 		const dropdown = document.querySelector('tp-yt-iron-dropdown');
@@ -120,8 +117,8 @@
 	}
 </script>
 
-<div class="datakun-ytb-button-container" role="menuitem" aria-selected="false" tabindex="-1" on:click={handleClickBlockChannel}>{$_('block-this-channel')}</div>
-<div class="datakun-ytb-button-container" role="menuitem" aria-selected="false" tabindex="-1" on:click={handleClickBlockVideo}>{$_('block-this-video')}</div>
+<div class="datakun-ytb-button-container" role="menuitem" aria-selected="false" tabindex="-1" on:click={handleClickBlockChannel}>{t('block_this_channel')}</div>
+<div class="datakun-ytb-button-container" role="menuitem" aria-selected="false" tabindex="-1" on:click={handleClickBlockVideo}>{t('block_this_video')}</div>
 
 <style>
 	div.datakun-ytb-button-container {
