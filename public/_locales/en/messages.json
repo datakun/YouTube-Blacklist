@@ -1,20 +1,65 @@
 {
-	"description": { "message": "Hide specific channels or videos from YouTube search results" },
-	"cancel": { "message": "cancel" },
-	"channel_list_to_block": { "message": "Channel List to Block" },
-	"general": { "message": "General" },
-	"remove": { "message": "remove" },
-	"save": { "message": "Save" },
-	"video_list_to_block": { "message": "Video List to Block" },
-	"youtube_blacklist_options": { "message": "YouTube Blacklist Options" },
-	"block_this_channel": { "message": "Block this channel" },
-	"block_this_channel_ask": { "message": "Block this channel?" },
-	"block_this_video": { "message": "Block this video" },
-	"block_this_video_ask": { "message": "Block this video?" },
-	"no": { "message": "No" },
-	"options_saved": { "message": "Saved the settings. Please refresh youtube page." },
-	"yes": { "message": "Yes" },
-	"you_have_blocked_the_channel": { "message": "You have blocked the channel." },
-	"you_have_blocked_the_video": { "message": "You have blocked the video." },
-	"youtube_blacklist": { "message": "YouTube Blacklist" }
+	"block_this_channel": {
+		"message": "Hide this channel"
+	},
+	"block_this_channel_ask": {
+		"message": "Hide this channel from search result?"
+	},
+	"block_this_video": {
+		"message": "Hide this video"
+	},
+	"block_this_video_ask": {
+		"message": "Hide this video from search result?"
+	},
+	"cancel": {
+		"message": "cancel"
+	},
+	"channel_list_to_block": {
+		"message": "List of channels to hide from search results"
+	},
+	"description": {
+		"message": "Hide specific channels or videos from YouTube search results"
+	},
+	"general": {
+		"message": "General"
+	},
+	"no": {
+		"message": "No"
+	},
+	"options_saved": {
+		"message": "Saved the settings. Please refresh youtube page."
+	},
+	"remove": {
+		"message": "remove"
+	},
+	"save": {
+		"message": "Save"
+	},
+	"video_list_to_block": {
+		"message": "List of videos to hide from search results"
+	},
+	"yes": {
+		"message": "Yes"
+	},
+	"you_have_blocked_the_channel": {
+		"message": "Added the channel to the blacklist."
+	},
+	"you_have_blocked_the_video": {
+		"message": "Added the video to the blacklist."
+	},
+	"youtube_blacklist": {
+		"message": "YouTube Blacklist"
+	},
+	"youtube_blacklist_options": {
+		"message": "YouTube Blacklist Options"
+	},
+	"youtube_blacklist_message": {
+		"message": "First, go to the page of the YouTube video or channel you want to hide and click this extension icon."
+	},
+	"already_blocked_channel": {
+		"message": "You have hidden this channel from search results."
+	},
+	"already_blocked_video": {
+		"message": "You have hidden this video from search results."
+	}
 }

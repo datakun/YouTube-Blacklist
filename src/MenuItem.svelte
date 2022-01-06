@@ -71,7 +71,7 @@
 					type: 'channel',
 					name: elemName.innerText,
 					image: elemImg.src,
-					url: elemA.getAttribute('href'),
+					url: elemA.href,
 				};
 
 				openBlockDialog(blockInfo);
@@ -87,7 +87,7 @@
 		hideDropdownMenu();
 
 		// 다이얼로그에 띄울 내용 준비
-		// NOTE: 비디오 이름, 비디오 주소
+		// NOTE: 영상 이름, 영상 주소
 		const menuIndex = getActivatedMenuIndex();
 		if (menuIndex === -1) {
 			// 클릭한 메뉴를 찾지 못함
@@ -96,7 +96,12 @@
 			return;
 		}
 
-		// 인덱스로 비디오 정보 조회
+		// 인덱스로 영상 정보 조회
+		// [...document.querySelectorAll('ytd-video-renderer').values()].map((data) => data.querySelector('a#video-title'))[0].href
+		// const videoRenderer = document.querySelectorAll('ytd-video-renderer');
+		// const aVideoInfoList = videoRenderer.querySelectorAll('a#video-title');
+		// aVideoInfoList[menuIndex]
+
 		const thumbnailList = document.querySelectorAll('ytd-thumbnail.ytd-video-renderer');
 		const currentThumbnail = thumbnailList[menuIndex];
 		if (currentThumbnail) {
@@ -108,7 +113,7 @@
 					type: 'video',
 					name: elemName.innerText,
 					image: '',
-					url: elemA.getAttribute('href'),
+					url: elemA.href,
 				};
 
 				openBlockDialog(blockInfo);

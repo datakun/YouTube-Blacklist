@@ -10,8 +10,7 @@
 		{
 			"js": ["build/injection.js"],
 			"css": ["build/injection.css"],
-			"matches": ["https://www.youtube.com/*"],
-			"run_at": "document_start"
+			"matches": ["https://www.youtube.com/*"]
 		}
 	],
 	"host_permissions": ["https://www.youtube.com/*"],

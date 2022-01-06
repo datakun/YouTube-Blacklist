@@ -1,20 +1,65 @@
 {
-	"description": { "message": "YouTube 검색 결과에서 특정 채널이나 비디오를 숨깁니다" },
-	"cancel": { "message": "취소" },
-	"channel_list_to_block": { "message": "차단할 채널 목록" },
-	"general": { "message": "일반" },
-	"remove": { "message": "제거" },
-	"save": { "message": "저장" },
-	"video_list_to_block": { "message": "차단할 비디오 목록" },
-	"youtube_blacklist_options": { "message": "YouTube Blacklist 옵션" },
-	"block_this_channel": { "message": "이 채널 차단하기" },
-	"block_this_channel_ask": { "message": "이 채널을 차단할까요?" },
-	"block_this_video": { "message": "이 비디오 차단하기" },
-	"block_this_video_ask": { "message": "이 비디오를 차단할까요?" },
-	"no": { "message": "아니오" },
-	"options_saved": { "message": "설정을 저장했습니다. 유튜브 페이지를 새로고침하여 적용하십시오." },
-	"yes": { "message": "네" },
-	"you_have_blocked_the_channel": { "message": "채널을 차단했습니다." },
-	"you_have_blocked_the_video": { "message": "영상을 차단했습니다." },
-	"youtube_blacklist": { "message": "YouTube Blacklist" }
+	"block_this_channel": {
+		"message": "이 채널 숨기기"
+	},
+	"block_this_channel_ask": {
+		"message": "이 채널을 검색 결과에서 숨길까요?"
+	},
+	"block_this_video": {
+		"message": "이 영상 숨기기"
+	},
+	"block_this_video_ask": {
+		"message": "이 영상을 검색 결과에서 숨길까요?"
+	},
+	"cancel": {
+		"message": "취소"
+	},
+	"channel_list_to_block": {
+		"message": "검색 결과에서 숨길 채널 목록"
+	},
+	"description": {
+		"message": "YouTube 검색 결과에서 특정 채널이나 영상을 숨깁니다"
+	},
+	"general": {
+		"message": "일반"
+	},
+	"no": {
+		"message": "아니오"
+	},
+	"options_saved": {
+		"message": "설정을 저장했습니다. 유튜브 페이지를 새로고침하여 적용하십시오."
+	},
+	"remove": {
+		"message": "제거"
+	},
+	"save": {
+		"message": "저장"
+	},
+	"video_list_to_block": {
+		"message": "검색 결과에서 숨길 영상 목록"
+	},
+	"yes": {
+		"message": "네"
+	},
+	"you_have_blocked_the_channel": {
+		"message": "채널을 차단 목록에 추가했습니다."
+	},
+	"you_have_blocked_the_video": {
+		"message": "영상을 차단 목록에 추가했습니다."
+	},
+	"youtube_blacklist": {
+		"message": "YouTube Blacklist"
+	},
+	"youtube_blacklist_options": {
+		"message": "YouTube Blacklist 옵션"
+	},
+	"youtube_blacklist_message": {
+		"message": "먼저 숨기려는 YouTube 영상 또는 채널 페이지로 이동한 후 이 확장 아이콘을 클릭하세요."
+	},
+	"already_blocked_channel": {
+		"message": "검색 결과에서 이 채널을 숨겼습니다."
+	},
+	"already_blocked_video": {
+		"message": "검색 결과에서 이 영상을 숨겼습니다."
+	}
 }

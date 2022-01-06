@@ -1,36 +1,46 @@
 import MenuItem from './MenuItem.svelte';
-import DialogRenderer from './DialogRenderer.svelte';
+import Dialog from './Dialog.svelte';
+import Snackbar from './Snackbar.svelte';
+import { hasBlockedInfo } from './utils';
 
-const renderer = new DialogRenderer({
+const dialog = new Dialog({
 	target: document.body,
 });
 
-function findBlockItemAndRemove(node) {
-	chrome.storage.sync.get('options').then(({ options }) => {
-		// 채널에서 검색
-		if (options?.blocks?.channel) {
-			for (const info of options.blocks.channel) {
-				const elemA = node.querySelector(`div#channel-info.ytd-video-renderer > a[href="${info.url}"]`);
-				if (elemA) {
-					node.style.display = 'none';
+const snackbar = new Snackbar({
+	target: document.body,
+});
 
-					return;
-				}
-			}
-		}
+/**
+ *
+ * @param {HTMLElement} element
+ */
+async function findBlockItemAndHide(element) {
+	// 테스트용 info list 작성
+	const testInfoList = [];
 
-		// 비디오에서 검색
-		if (options?.blocks?.video) {
-			for (const info of options.blocks.video) {
-				const elemA = node.querySelector(`a#video-title[href="${info.url}"]`);
-				if (elemA) {
-					node.style.display = 'none';
+	/** @type {HTMLAnchorElement} */
+	const aChannelInfo = element.querySelector(`div#channel-info.ytd-video-renderer > a`);
+	if (aChannelInfo) {
+		testInfoList.push({
+			type: 'channel',
+			url: aChannelInfo.href,
+		});
+	}
 
-					return;
-				}
-			}
-		}
-	});
+	/** @type {HTMLAnchorElement} */
+	const aVideoInfo = element.querySelector(`a#video-title`);
+	if (aVideoInfo) {
+		testInfoList.push({
+			type: 'video',
+			url: aVideoInfo.href,
+		});
+	}
+
+	const isBlocked = await hasBlockedInfo(testInfoList);
+	if (isBlocked) {
+		element.style.display = 'none';
+	}
 }
 
 function startMenuContainerObserver() {
@@ -72,7 +82,7 @@ function startSearchResultObserver() {
 		for (const mutations of mutationsList) {
 			if (mutations.target instanceof HTMLElement) {
 				if (mutations.target.tagName.toLowerCase() === 'ytd-video-renderer') {
-					findBlockItemAndRemove(mutations.target);
+					findBlockItemAndHide(mutations.target);
 				}
 			}
 		}
@@ -88,7 +98,7 @@ async function main() {
 	// 기존의 노드에서 검사 후 삭제
 	const existNodeList = document.body.querySelectorAll('ytd-video-renderer');
 	for (const node of existNodeList) {
-		findBlockItemAndRemove(node);
+		findBlockItemAndHide(node);
 	}
 
 	startSearchResultObserver();
