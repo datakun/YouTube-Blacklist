@@ -1,9 +1,10 @@
 <script>
 	import Button, { Label } from '@smui/button';
 	import Dialog, { Title, Content, Actions } from '@smui/dialog';
-	import { openDialog, blockInfo, openSnackbar, snackbarMessage } from './store';
+	import { openDialog, blockInfo } from './store';
 	import { registerBlockInfo, t } from './utils';
 	import { youtubeBlockPattern } from './environment';
+	import ChromeApi from './ChromeApi';
 
 	let open = false;
 	openDialog.subscribe((value) => {
@@ -36,11 +37,10 @@
 
 		// 스낵바 열기
 		if (rawInfo.type === 'channel') {
-			snackbarMessage.set(t('you_have_blocked_the_channel'));
+			ChromeApi.openSnackbar(t('you_have_blocked_the_channel'));
 		} else {
-			snackbarMessage.set(t('you_have_blocked_the_video'));
+			ChromeApi.openSnackbar(t('you_have_blocked_the_video'));
 		}
-		openSnackbar.set(true);
 
 		// youtube url 에서 watch|channel|user|c 부터 주소 추출
 		const href = rawInfo.url.match(youtubeBlockPattern)?.[1];

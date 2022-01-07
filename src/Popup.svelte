@@ -1,8 +1,8 @@
 <script>
 	import Button, { Label } from '@smui/button';
 	import { youtubeChannelPattern, youtubeVideoPattern } from './environment';
-	import { openSnackbar, snackbarMessage } from './store';
 	import { hasBlockedInfo, registerBlockInfo, t } from './utils';
+	import ChromeApi from './ChromeApi';
 
 	$: isBlocked = false;
 
@@ -26,15 +26,11 @@
 		await registerBlockInfo(rawInfo);
 
 		// 스낵바 열기
-		let message = '';
 		if (rawInfo.type === 'channel') {
-			message = t('you_have_blocked_the_channel');
+			ChromeApi.openSnackbar(t('you_have_blocked_the_channel'));
 		} else {
-			message = t('you_have_blocked_the_video');
+			ChromeApi.openSnackbar(t('you_have_blocked_the_video'));
 		}
-		chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
-			chrome.tabs.sendMessage(tabs[0].id, { action: 'open_snackbar', message: message });
-		});
 
 		handleClose();
 	}
