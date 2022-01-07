@@ -26,15 +26,15 @@
 		await registerBlockInfo(rawInfo);
 
 		// 스낵바 열기
+		let message = '';
 		if (rawInfo.type === 'channel') {
-			chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
-				chrome.tabs.sendMessage(tabs[0].id, { action: 'open_snackbar', message: t('you_have_blocked_the_channel') });
-			});
+			message = t('you_have_blocked_the_channel');
 		} else {
-			chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
-				chrome.tabs.sendMessage(tabs[0].id, { action: 'open_snackbar', message: t('you_have_blocked_the_video') });
-			});
+			message = t('you_have_blocked_the_video');
 		}
+		chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+			chrome.tabs.sendMessage(tabs[0].id, { action: 'open_snackbar', message: message });
+		});
 
 		handleClose();
 	}
@@ -77,31 +77,25 @@
 
 <div class="dialog-box">
 	<div class="dialog-title">{t('youtube_blacklist')}</div>
-	{#if rawInfo.type === ''}
-		<!-- 영상, 채널 정보를 찾을 수 없는 경우 -->
-		<div class="dialog-content">
+	<div class="dialog-content">
+		{#if rawInfo.type === ''}
+			<!-- 영상, 채널 정보를 찾을 수 없는 경우 -->
 			<div class="channel-container">
 				{t('youtube_blacklist_message')}
 			</div>
-		</div>
-	{:else if isBlocked}
-		<!-- 정보를 찾을 수 있지만 차단된 경우 -->
-		{#if rawInfo.type === 'channel'}
-			<div class="dialog-content">
+		{:else if isBlocked}
+			<!-- 정보를 찾을 수 있지만 차단된 경우 -->
+			{#if rawInfo.type === 'channel'}
 				<div class="channel-container">
 					{t('already_blocked_channel')}
 				</div>
-			</div>
-		{:else if rawInfo.type === 'video'}
-			<div class="dialog-content">
+			{:else if rawInfo.type === 'video'}
 				<div class="channel-container">
 					{t('already_blocked_video')}
 				</div>
-			</div>
-		{/if}
-	{:else}
-		<!-- 차단되지 않은 경우 -->
-		<div class="dialog-content">
+			{/if}
+		{:else}
+			<!-- 차단되지 않은 경우 -->
 			{#if rawInfo.type === 'channel'}
 				{t('block_this_channel_ask')}
 			{:else}
@@ -111,7 +105,9 @@
 			<div class="channel-container">
 				<span class="channel-name">{rawInfo.name}</span>
 			</div>
-		</div>
+		{/if}
+	</div>
+	{#if rawInfo.type !== '' && isBlocked === false}
 		<div class="action-container">
 			<Button on:click={handleClickYes}>
 				<Label>{t('yes')}</Label>
@@ -139,11 +135,12 @@
 	}
 
 	.dialog-content {
-		padding-bottom: 8px;
+		padding-top: 8px;
 		padding-left: 16px;
 		padding-right: 16px;
 		padding-bottom: 8px;
 		font-size: 14px;
+		word-break: keep-all;
 	}
 
 	.action-container {

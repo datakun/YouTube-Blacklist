@@ -64,8 +64,7 @@
 
 <Dialog bind:open aria-labelledby="title" aria-describedby="content" on:SMUIDialog:closed={handleClose}>
 	<Title style="font-size: 18px;">{t('youtube_blacklist')}</Title>
-	<Content style="font-size: 14px;">
-		<br />
+	<Content style="font-size: 14px; word-break: keep-all;">
 		{#if rawInfo.type === 'channel'}
 			{t('block_this_channel_ask')}
 		{:else}
