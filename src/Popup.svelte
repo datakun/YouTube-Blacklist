@@ -2,7 +2,6 @@
 	import Button, { Label } from '@smui/button';
 	import { youtubeChannelPattern, youtubeVideoPattern } from './environment';
 	import { hasBlockedInfo, registerBlockInfo, t } from './utils';
-	import ChromeApi from './ChromeApi';
 
 	$: isBlocked = false;
 
@@ -25,14 +24,21 @@
 		// 차단 아이템 추가
 		await registerBlockInfo(rawInfo);
 
-		// 스낵바 열기
-		if (rawInfo.type === 'channel') {
-			ChromeApi.openSnackbar(t('you_have_blocked_the_channel'));
-		} else {
-			ChromeApi.openSnackbar(t('you_have_blocked_the_video'));
-		}
+		chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+			// 스낵바 열기
+			let message = t('you_have_blocked_the_channel');
+			if (rawInfo.type === 'video') {
+				message = t('you_have_blocked_the_video');
+			}
+			chrome.tabs.sendMessage(tabs[0].id, { action: 'openSnackbar', message: message });
 
-		handleClose();
+			isBlocked = true;
+
+			// 3 초 뒤에 닫기
+			setTimeout(() => {
+				handleClose();
+			}, 3000);
+		});
 	}
 
 	function handleClickNo() {
@@ -51,7 +57,9 @@
 					url: url,
 				};
 
-				isBlocked = await hasBlockedInfo([rawInfo]);
+				hasBlockedInfo([rawInfo]).then((result) => {
+					isBlocked = result;
+				});
 			} else if (url.match(youtubeVideoPattern)) {
 				rawInfo = {
 					type: 'video',
@@ -59,7 +67,9 @@
 					url: url,
 				};
 
-				isBlocked = await hasBlockedInfo([rawInfo]);
+				hasBlockedInfo([rawInfo]).then((result) => {
+					isBlocked = result;
+				});
 			} else {
 				rawInfo = {
 					type: '',

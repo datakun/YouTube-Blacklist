@@ -9,7 +9,7 @@ async function insertStyles(tabId) {
 		func: isDarkMode,
 	});
 
-	console.log('is Dark Mode?', injectResult.result);
+	// console.log('is Dark Mode?', injectResult.result);
 
 	if (injectResult.result !== null && injectResult.result !== undefined) {
 		let filename = './build/smui.css';
@@ -43,13 +43,14 @@ async function main() {
 
 	// 탭이 업데이트 되면 할 일 등록
 	chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
+		console.log('onUpdated', tabId, changeInfo, tab);
 		if (changeInfo.status === 'loading') {
 			// 검색 결과 url 에서만 스타일 삽입
-			if (tab.url) {
-				if (tab.url.startsWith('https://www.youtube.com/')) {
-					insertStyles(tabId);
-				}
+			if (tab.url?.startsWith('https://www.youtube.com/')) {
+				insertStyles(tabId);
 			}
+		} else if (changeInfo.status === 'complete') {
+			chrome.tabs.sendMessage(tabId, { action: 'tabsUpdate', tab: tab });
 		}
 	});
 }

@@ -1,7 +1,7 @@
 {
 	"name": "YouTube Blacklist",
 	"description": "__MSG_description__",
-	"version": "0.1.2",
+	"version": "0.2.0",
 	"manifest_version": 3,
 	"background": {
 		"service_worker": "./build/background.js"
