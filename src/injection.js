@@ -225,109 +225,6 @@ function handleMenuClick(e) {
 		}
 
 		injectMenus(clickedMenuDiv, menuContainer);
-
-		// /** @type {HTMLElement} */
-		// let elementContainer = null;
-		// /** @type {HTMLAnchorElement} */
-		// let aChannel = null;
-		// /** @type {HTMLAnchorElement} */
-		// let aVideo = null;
-		// let channelName = '';
-		// let videoName = '';
-
-		// if (currentPageType === 'main') {
-		// 	elementContainer = clickedMenuDiv.closest(youtubeMainItemTag);
-		// 	aChannel = elementContainer.querySelector('a#avatar-link');
-		// 	aVideo = elementContainer.querySelector('a#video-title-link');
-		// 	channelName = aChannel.title;
-		// 	videoName = aVideo.title;
-		// } else if (currentPageType === 'search') {
-		// 	elementContainer = clickedMenuDiv.closest(youtubeSearchItemTag);
-		// 	aChannel = elementContainer.querySelector('div#channel-info.ytd-video-renderer > a');
-		// 	aVideo = elementContainer.querySelector('a#video-title');
-		// 	channelName = elementContainer.querySelector('ytd-channel-name a').innerText;
-		// 	videoName = elementContainer.querySelector('a#video-title').innerText;
-		// } else if (currentPageType === 'channel') {
-		// }
-
-		// // console.log(aChannel);
-		// // console.log(aVideo);
-
-		// // // 채널 정보를 찾으면 채널 숨기기 메뉴 확인 후 메뉴 생성 혹은 값 수정
-		// // if (aChannel) {
-		// // 	const img = aChannel.querySelector('img');
-		// // 	// 메뉴 버튼을 누를때마다 메뉴 컨테이너에 메뉴 아이템이 생성됐는지 확인하고
-		// // 	if (menuBlockChannel) {
-		// // 		// 생성 되어있다면 실제로 존재하는지 확인
-		// // 		if (menuContainer.querySelector('div.datakun-ytb-block-channel') === null) {
-		// // 			// 실제로 존재하지 않는다면 (어떤 이유에서 삭제가 됐다면) 변수 초기화
-		// // 			menuBlockChannel = null;
-		// // 		} else {
-		// // 			// 생성 되어있다면 상황에 따라 속성 설정
-		// // 			menuBlockChannel.$set({
-		// // 				blockName: channelName,
-		// // 				blockUrl: aChannel.href,
-		// // 				imageSrc: img !== null ? img.src : '',
-		// // 			});
-		// // 		}
-		// // 	}
-
-		// // 	// 채널 아이콘의 hidden 속성이 존재하지 않을때만(아이콘이 있을 때만) 차단 메뉴 생성
-		// // 	if (aChannel.getAttribute('hidden') === null) {
-		// // 		// 메뉴 확인 과정 거친 후 메뉴 변수가 null 이라면 메뉴 생성
-		// // 		if (menuBlockChannel === null) {
-		// // 			// 메뉴 생성
-		// // 			menuBlockChannel = new BlockMenu({
-		// // 				target: menuContainer,
-		// // 				props: {
-		// // 					type: 'channel',
-		// // 					label: t('block_this_channel'),
-		// // 					blockName: channelName,
-		// // 					blockUrl: aChannel.href,
-		// // 					imageSrc: img !== null ? img.src : '',
-		// // 				},
-		// // 			});
-		// // 		}
-		// // 	}
-		// // }
-
-		// // // 영상 정보를 찾으면 채널 숨기기 메뉴 확인 후 메뉴 생성 혹은 값 수정
-		// // if (aVideo) {
-		// // 	// 메뉴 버튼을 누를때마다 메뉴 컨테이너에 메뉴 아이템이 생성됐는지 확인하고
-		// // 	if (menuBlockVideo) {
-		// // 		// 생성 되어있다면 실제로 존재하는지 확인
-		// // 		if (menuContainer.querySelector('div.datakun-ytb-block-video') === null) {
-		// // 			// 실제로 존재하지 않는다면 (어떤 이유에서 삭제가 됐다면) 변수 초기화
-		// // 			menuBlockVideo = null;
-		// // 		} else {
-		// // 			// 생성 되어있다면 상황에 따라 속성 설정
-		// // 			menuBlockVideo.$set({
-		// // 				blockName: videoName,
-		// // 				blockUrl: aVideo.href,
-		// // 			});
-		// // 		}
-		// // 	}
-
-		// // 	// 재생 목록 아이템의 메뉴 버튼을 누르지 않았을 때만 차단 메뉴 생성
-		// // 	const playlistPattern = /^https?:\/\/(?:www\.)?youtube\.com\/watch\?v=([a-zA-Z0-9_-]+)&list=([a-zA-Z0-9_-]+)/;
-		// // 	if (aVideo.href.match(playlistPattern) === null) {
-		// // 		// 메뉴 확인 과정 거친 후 메뉴 변수가 null 이라면 메뉴 생성
-		// // 		if (menuBlockVideo === null) {
-		// // 			// 메뉴 생성
-		// // 			menuBlockVideo = new BlockMenu({
-		// // 				target: menuContainer,
-		// // 				props: {
-		// // 					type: 'video',
-		// // 					label: t('block_this_video'),
-		// // 					blockName: videoName,
-		// // 					blockUrl: aVideo.href,
-		// // 				},
-		// // 			});
-		// // 		}
-		// // 	}
-		// // }
-
-		// // menuContainer.closest('ytd-menu-popup-renderer').style.maxHeight = '100%';
 	}
 }
 
@@ -370,13 +267,12 @@ function main() {
 	document.body.addEventListener('click', handleMenuClick, false);
 
 	chrome.runtime.onMessage.addListener((request) => {
-		console.log('injection', request);
+		// console.log('injection', request);
 		if (request.action === 'tabsUpdate') {
 			// 탭이 변경되면 url을 검사해서 존재하는 아이템 목록 중에 숨길 아이템 찾기.
 			let existNodeList = [];
 
 			currentPageType = getCurrentPageType(request.tab);
-			console.log(currentPageType);
 			if (currentPageType === 'main') {
 				existNodeList = document.body.querySelectorAll(youtubeMainItemTag);
 			} else if (currentPageType === 'search') {

@@ -61,5 +61,29 @@
 	},
 	"already_blocked_video": {
 		"message": "You have hidden this video from search results."
+	},
+	"export": {
+		"message": "Export Options"
+	},
+	"import": {
+		"message": "Import Options"
+	},
+	"options_imported": {
+		"message": "Imported the YouTube Blacklist options."
+	},
+	"invalid_json": {
+		"message": "Invalid file format."
+	},
+	"invalid_json_channel": {
+		"message": "Invalid file format. Channel list is not found."
+	},
+	"invalid_json_channel_item": {
+		"message": "Invalid file format. Channel item is not found."
+	},
+	"invalid_json_video": {
+		"message": "Invalid file format. Video list is not found."
+	},
+	"invalid_json_video_item": {
+		"message": "Invalid file format. Video list is not found."
 	}
 }
