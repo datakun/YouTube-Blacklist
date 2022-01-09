@@ -63,10 +63,10 @@
 		"message": "You have hidden this video from search results."
 	},
 	"export": {
-		"message": "Export Options"
+		"message": "Export"
 	},
 	"import": {
-		"message": "Import Options"
+		"message": "Import"
 	},
 	"options_imported": {
 		"message": "Imported the YouTube Blacklist options."

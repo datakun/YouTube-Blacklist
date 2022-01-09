@@ -63,10 +63,10 @@
 		"message": "검색 결과에서 이 영상을 숨겼습니다."
 	},
 	"export": {
-		"message": "옵션 내보내기"
+		"message": "내보내기"
 	},
 	"import": {
-		"message": "옵션 가져오기"
+		"message": "가져오기"
 	},
 	"options_imported": {
 		"message": "YouTube Blacklist 옵션을 불러왔습니다."
