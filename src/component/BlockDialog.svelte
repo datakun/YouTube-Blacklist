@@ -1,9 +1,9 @@
 <script>
 	import Button, { Label } from '@smui/button';
 	import Dialog, { Title, Content, Actions } from '@smui/dialog';
-	import { openDialog, dialogInfo, openSnackbar, snackbarMessage } from './store';
-	import { registerBlockInfo, t } from './utils';
-	import { youtubeBlockPattern, youtubeMainItemTag, youtubeSearchItemTag } from './environment';
+	import { openDialog, dialogInfo, openSnackbar, snackbarMessage } from '../store';
+	import { registerBlockInfo, t } from '../common/utils';
+	import { youtubeBlockPattern, youtubeMainItemTag, youtubeSearchItemTag } from '../common/environment';
 
 	let open = false;
 	openDialog.subscribe((value) => {

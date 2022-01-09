@@ -1,10 +1,10 @@
-import BlockMenu from './BlockMenu.svelte';
-import BlockDialog from './BlockDialog.svelte';
-import BlockSnackbar from './BlockSnackbar.svelte';
-import { getCurrentPageType, hasBlockedInfo, t } from './utils';
+import BlockMenu from './component/BlockMenu.svelte';
+import BlockDialog from './component/BlockDialog.svelte';
+import BlockSnackbar from './component/BlockSnackbar.svelte';
+import { getCurrentPageType, hasBlockedInfo, t } from './common/utils';
 import { SvelteComponentDev } from 'svelte/internal';
 import { openSnackbar, snackbarMessage } from './store';
-import { youtubeMainItemTag, youtubeSearchItemTag } from './environment';
+import { youtubeMainItemTag, youtubeSearchItemTag } from './common/environment';
 
 /** @type {SvelteComponentDev} */
 const dialog = new BlockDialog({

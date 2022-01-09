@@ -1,7 +1,7 @@
 <script>
 	import Button, { Label } from '@smui/button';
-	import { youtubeChannelPattern, youtubeVideoPattern } from './environment';
-	import { hasBlockedInfo, registerBlockInfo, t } from './utils';
+	import { youtubeChannelPattern, youtubeVideoPattern } from '../common/environment';
+	import { hasBlockedInfo, registerBlockInfo, t } from '../common/utils';
 
 	$: isBlocked = false;
 

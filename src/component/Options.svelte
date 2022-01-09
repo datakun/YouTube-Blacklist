@@ -2,7 +2,7 @@
 	import Button, { Label } from '@smui/button';
 	import List, { Item, Separator, Text, Meta } from '@smui/list';
 	import Paper from '@smui/paper';
-	import { t } from './utils';
+	import { t } from '../common/utils';
 
 	$: channelList = [];
 	$: videoList = [];

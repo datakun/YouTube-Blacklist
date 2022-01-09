@@ -1,10 +1,5 @@
 <script>
-	import { onDestroy } from 'svelte';
-
-	import { youtubeChannelPattern, youtubeMainPattern, youtubeResultPattern, youtubeVideoPattern } from './environment';
-
-	import { dialogInfo, openDialog } from './store';
-	import { t } from './utils';
+	import { dialogInfo, openDialog } from '../store';
 
 	export let type = 'channel';
 	export let label = '';

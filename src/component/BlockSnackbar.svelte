@@ -3,8 +3,8 @@
 	import { Svg } from '@smui/common/elements';
 	import { mdiClose } from '@mdi/js';
 	import Snackbar, { Label, Actions } from '@smui/snackbar';
-	import { t } from './utils';
-	import { openSnackbar, snackbarMessage } from './store';
+	import { t } from '../common/utils';
+	import { openSnackbar, snackbarMessage } from '../store';
 
 	let snackbar = null;
 
