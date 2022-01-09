@@ -1,5 +1,5 @@
 <script>
-	import { dialogInfo, openDialog } from '../store';
+	import { dialogInfo, openDialog } from '../contentStore';
 
 	export let type = 'channel';
 	export let label = '';

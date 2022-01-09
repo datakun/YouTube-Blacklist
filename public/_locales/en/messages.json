@@ -62,6 +62,9 @@
 	"already_blocked_video": {
 		"message": "You have hidden this video from search results."
 	},
+	"refresh": {
+		"message": "Refresh Options"
+	},
 	"export": {
 		"message": "Export"
 	},
@@ -85,5 +88,29 @@
 	},
 	"invalid_json_video_item": {
 		"message": "Invalid file format. Video item is not found."
+	},
+	"keep_old_blacklist": {
+		"message": "Do you want to keep the old blacklist?"
+	},
+	"channel": {
+		"message": "Channel"
+	},
+	"video": {
+		"message": "Video"
+	},
+	"channels": {
+		"message": "Channels"
+	},
+	"videos": {
+		"message": "Videos"
+	},
+	"cancel_import": {
+		"message": "Cancel Import"
+	},
+	"keep": {
+		"message": "Keep"
+	},
+	"overwrite": {
+		"message": "Overwrite"
 	}
 }

@@ -1,7 +1,7 @@
 <script>
 	import Button, { Label } from '@smui/button';
 	import Dialog, { Title, Content, Actions } from '@smui/dialog';
-	import { openDialog, dialogInfo, openSnackbar, snackbarMessage } from '../store';
+	import { openDialog, dialogInfo, openSnackbar, snackbarMessage } from '../contentStore';
 	import { registerBlockInfo, t } from '../common/utils';
 	import { youtubeBlockPattern, youtubeMainItemTag, youtubeSearchItemTag } from '../common/environment';
 
@@ -73,14 +73,14 @@
 	 */
 	function handleClickOutside(e) {
 		if (e.target instanceof HTMLElement) {
-			if (e.target.id === 'datakun-ytb-dialog') {
+			if (e.target.id === 'datakun-ytb-dialog-block') {
 				handleClose();
 			}
 		}
 	}
 </script>
 
-<Dialog id="datakun-ytb-dialog" bind:open aria-labelledby="title" aria-describedby="content" on:SMUIDialog:closed={handleClose} on:click={handleClickOutside}>
+<Dialog id="datakun-ytb-dialog-block" bind:open aria-labelledby="title" aria-describedby="content" on:SMUIDialog:closed={handleClose} on:click={handleClickOutside}>
 	<Title style="font-size: 18px;">{t('youtube_blacklist')}</Title>
 	<Content style="padding-top: 16px; font-size: 14px; word-break: keep-all;">
 		{#if rawInfo.type === 'channel'}

@@ -3,37 +3,25 @@
 	import List, { Item, Separator, Text, Meta } from '@smui/list';
 	import Paper from '@smui/paper';
 	import { t } from '../common/utils';
-
-	$: channelList = [];
-	$: videoList = [];
-	$: buttonState = {
-		canSave: {
-			channel: false,
-			video: false,
-		},
-		canCancel: {
-			channel: false,
-			video: false,
-		},
-	};
+	import { openImportDialog, importDialogInfo, channelList, buttonState, videoList } from '../optionStore';
 
 	let inputFileOptions = null;
 
-	async function getBlocklist(type) {
+	async function updateOptionsPageData(type) {
 		// 스토리지에 저장된 값 가져오기
 		const { options } = await chrome.storage.sync.get('options');
 
 		if (type === 'channel') {
-			channelList = options?.blocks?.channel || [];
+			channelList.set(options?.blocks?.channel || []);
 		} else if (type === 'video') {
-			videoList = options?.blocks?.video || [];
+			videoList.set(options?.blocks?.video || []);
 		} else {
-			channelList = options?.blocks?.channel || [];
-			videoList = options?.blocks?.video || [];
+			channelList.set(options?.blocks?.channel || []);
+			videoList.set(options?.blocks?.video || []);
 		}
 
 		if (type === undefined) {
-			buttonState = {
+			buttonState.set({
 				canSave: {
 					channel: false,
 					video: false,
@@ -42,14 +30,24 @@
 					channel: false,
 					video: false,
 				},
-			};
+			});
 		} else {
-			buttonState.canSave[type] = false;
-			buttonState.canCancel[type] = false;
+			buttonState.set({
+				canSave: {
+					...$buttonState.canSave,
+					[type]: false,
+				},
+				canCancel: {
+					...$buttonState.canCancel,
+					[type]: false,
+				},
+			});
 		}
+
+		return options;
 	}
 
-	getBlocklist();
+	updateOptionsPageData();
 
 	async function handleSaveBlacklist(type) {
 		// 스토리지 데이터 가져오기
@@ -58,12 +56,12 @@
 		if (type === 'channel') {
 			options.blocks = {
 				...options.blocks,
-				channel: channelList,
+				channel: $channelList,
 			};
 		} else if (type === 'video') {
 			options.blocks = {
 				...options.blocks,
-				video: videoList,
+				video: $videoList,
 			};
 		}
 
@@ -73,11 +71,11 @@
 		alert(t('options_saved'));
 
 		// 버튼 상태 변경용
-		getBlocklist(type);
+		updateOptionsPageData(type);
 	}
 
 	function handleCancelBlacklist(type) {
-		getBlocklist(type);
+		updateOptionsPageData(type);
 	}
 
 	async function handleExportOptions() {
@@ -114,42 +112,56 @@
 		const reader = new FileReader();
 		reader.onload = async () => {
 			try {
-				let options = JSON.parse(reader.result);
+				const options = await updateOptionsPageData();
 
-				if (options?.blocks === undefined) {
+				const newOptions = JSON.parse(reader.result);
+
+				if (newOptions?.blocks === undefined) {
 					throw new Error(t('invalid_json'));
 				}
 
-				if (options.blocks.channel === undefined || Array.isArray(options.blocks.channel) === false) {
+				if (newOptions.blocks.channel === undefined || Array.isArray(newOptions.blocks.channel) === false) {
 					// 채널 목록이 존재하는지 확인
 					throw new Error(t('invalid_json_channel'));
 				} else {
 					// 채널 목록의 아이템이 형식을 갖췃는지 확인
-					for (const info of options.blocks.channel) {
+					for (const info of newOptions.blocks.channel) {
 						if (info.type !== 'channel' || typeof info.name !== 'string' || typeof info.url !== 'string') {
 							throw new Error(t('invalid_json_channel_item'));
 						}
 					}
 				}
 
-				if (options.blocks.video === undefined || Array.isArray(options.blocks.video) === false) {
+				if (newOptions.blocks.video === undefined || Array.isArray(newOptions.blocks.video) === false) {
 					// 영상 목록이 존재하는지 확인
 					throw new Error(t('invalid_json_video'));
 				} else {
 					// 영상 목록의 아이템이 형식을 갖췃는지 확인
-					for (const info of options.blocks.video) {
+					for (const info of newOptions.blocks.video) {
 						if (info.type !== 'video' || typeof info.name !== 'string' || typeof info.url !== 'string') {
 							throw new Error(t('invalid_json_video_item'));
 						}
 					}
 				}
 
-				// 스토리지에 저장
-				await chrome.storage.sync.set({ options });
+				// 기존 항목을 메시지로 변경
+				let message = t('channels');
+				for (const info of options.blocks.channel) {
+					message = `${message}\n- ${info.name}`;
+				}
+				message = `${message}\n${t('videos')}:`;
+				for (const info of options.blocks.video) {
+					message = `${message}\n- ${info.name}`;
+				}
 
-				alert(t('options_imported'));
+				importDialogInfo.set({
+					message: message,
+					options: options,
+					newOptions: newOptions,
+				});
+				openImportDialog.set(true);
 
-				getBlocklist();
+				// getBlocklist();
 			} catch (error) {
 				// 옵션 파일 열기 실패
 				alert(error);
@@ -173,6 +185,9 @@
 				<Button variant="outlined" style="margin-left: 8px;" on:click={() => inputFileOptions.click()}>
 					<Label>{t('import')}</Label>
 				</Button>
+				<Button variant="outlined" style="margin-left: 8px;" on:click={updateOptionsPageData}>
+					<Label>{t('refresh')}</Label>
+				</Button>
 			</div>
 		</div>
 		<Paper>
@@ -180,7 +195,7 @@
 			<Separator />
 			<div class="block-container">
 				<List class="list">
-					{#each channelList as item, i}
+					{#each $channelList as item, i}
 						<Item class="item" title={item.name}>
 							<Text>{item.name}</Text>
 							<Meta
@@ -188,13 +203,21 @@
 								title={t('remove')}
 								on:click={() => {
 									// 배열에서 삭제
-									const newList = channelList;
+									const newList = $channelList;
 									newList.splice(i, 1);
-									channelList = newList;
+									channelList.set(newList);
 
 									// 저장 가능
-									buttonState.canSave['channel'] = true;
-									buttonState.canCancel['channel'] = true;
+									buttonState.set({
+										canSave: {
+											...$buttonState.canSave,
+											channel: true,
+										},
+										canCancel: {
+											...$buttonState.canCancel,
+											channel: true,
+										},
+									});
 								}}
 							>
 								clear
@@ -207,7 +230,7 @@
 				<Button
 					variant="raised"
 					style="margin-left: 8px;"
-					disabled={!buttonState.canSave['channel']}
+					disabled={!$buttonState.canSave['channel']}
 					on:click={() => {
 						handleSaveBlacklist('channel');
 					}}
@@ -217,7 +240,7 @@
 				<Button
 					variant="outlined"
 					style="margin-left: 16px;"
-					disabled={!buttonState.canCancel['channel']}
+					disabled={!$buttonState.canCancel['channel']}
 					on:click={() => {
 						handleCancelBlacklist('channel');
 					}}
@@ -231,7 +254,7 @@
 			<Separator />
 			<div class="block-container">
 				<List class="list">
-					{#each videoList as item, i}
+					{#each $videoList as item, i}
 						<Item class="item" title={item.name}>
 							<Text>{item.name}</Text>
 							<Meta
@@ -239,13 +262,21 @@
 								title={t('remove')}
 								on:click={() => {
 									// 배열에서 삭제
-									const newList = videoList;
+									const newList = $videoList;
 									newList.splice(i, 1);
-									videoList = newList;
+									videoList.set(newList);
 
 									// 저장 가능
-									buttonState.canSave['video'] = true;
-									buttonState.canCancel['video'] = true;
+									buttonState.set({
+										canSave: {
+											...$buttonState.canSave,
+											video: true,
+										},
+										canCancel: {
+											...$buttonState.canCancel,
+											video: true,
+										},
+									});
 								}}
 							>
 								clear
@@ -258,7 +289,7 @@
 				<Button
 					variant="raised"
 					style="margin-left: 8px;"
-					disabled={!buttonState.canSave['video']}
+					disabled={!$buttonState.canSave['video']}
 					on:click={() => {
 						handleSaveBlacklist('video');
 					}}
@@ -268,7 +299,7 @@
 				<Button
 					variant="outlined"
 					style="margin-left: 16px;"
-					disabled={!buttonState.canCancel['video']}
+					disabled={!$buttonState.canCancel['video']}
 					on:click={() => {
 						handleCancelBlacklist('video');
 					}}

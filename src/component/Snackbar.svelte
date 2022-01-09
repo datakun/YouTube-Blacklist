@@ -4,7 +4,7 @@
 	import { mdiClose } from '@mdi/js';
 	import Snackbar, { Label, Actions } from '@smui/snackbar';
 	import { t } from '../common/utils';
-	import { openSnackbar, snackbarMessage } from '../store';
+	import { openSnackbar, snackbarMessage } from '../contentStore';
 
 	let snackbar = null;
 
