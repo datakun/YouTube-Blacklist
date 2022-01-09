@@ -101,6 +101,7 @@ function injectMenus(clickedMenuDiv, menuContainer) {
 		// channelName = aChannel.title;
 		// channelImg = aChannel.querySelector('img').src;
 		// videoName = aVideo.title;
+		return;
 	} else if (currentPageType === 'search') {
 		// 검색 결과 페이지에서 메뉴를 주입하려는 경우
 		elementContainer = clickedMenuDiv.closest(youtubeSearchItemTag);
@@ -111,6 +112,7 @@ function injectMenus(clickedMenuDiv, menuContainer) {
 		videoName = elementContainer.querySelector('a#video-title').innerText;
 	} else if (currentPageType === 'channel') {
 		// 채널 페이지에서 메뉴를 주입하려는 경우
+		return;
 	}
 
 	// console.log(aChannel);
