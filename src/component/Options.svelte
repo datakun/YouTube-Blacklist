@@ -152,10 +152,10 @@
 				getBlocklist();
 			} catch (error) {
 				// 옵션 파일 열기 실패
-				console.error(error);
-
 				alert(error);
 			}
+
+			inputFileOptions.value = '';
 		};
 		reader.readAsText(inputFileOptions.files[0]);
 	}

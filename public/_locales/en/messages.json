@@ -84,6 +84,6 @@
 		"message": "Invalid file format. Video list is not found."
 	},
 	"invalid_json_video_item": {
-		"message": "Invalid file format. Video list is not found."
+		"message": "Invalid file format. Video item is not found."
 	}
 }
